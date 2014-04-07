@@ -1,0 +1,8 @@
+Package: dup.action
+Title: Actions for handling duplicate records 
+Version: 0.1
+Authors@R: "Christopher Brown <chris.brown@decisionpatterns.com> [aut, cre]"
+Description: dup.action provides utilities for working with data sets with duplicate records. The core are functions dup.* that take some actions.  
+Depends: R (>= 3.0.1)
+License: GPLv2
+LazyData: true
