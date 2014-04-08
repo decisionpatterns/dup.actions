@@ -1,0 +1,4 @@
+export(dup.action)
+export(dup.first)
+export(dup.last)
+export(dup.pivot)
