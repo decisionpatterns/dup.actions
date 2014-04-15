@@ -3,11 +3,12 @@
 #' Remove duplicates by pivoting data from long to wide format, thus reducing 
 #' duplications in repeated measure of one or more variables.
 #' 
-#' @param data
+#' @param data object to pivot from wide-to-long format
 #' @param id.vars character; names(s) of id variables
 #' @param vary character; name(s) of 'varying' variables, i.e. those to be 
 #' pivoted into the wide position.
 #' @param ... additional arguments passed to \code{melt} or \code{cast}
+#' @param fun.aggregate function used to aggregate duplicate cell (default=sum)
 #' 
 #' @seealso \code{\link{dup.action}}
 #' 

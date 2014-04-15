@@ -19,6 +19,9 @@
 #' \strong{dup.omit} removes all records that have duplicates, i.e. only unique 
 #' records remain.
 #' 
+#' The \code{dup.action} family of methods does not preserve attributes. To 
+#' preserve attributes during subset, see \code{\link{dedup}}.
+#' 
 #' @return a object with the same class as \code{object} with the associated 
 #' dup.action
 #' 
@@ -35,12 +38,12 @@
 #'   dup.last(x)
 #' 
 #'   if( require(data.table) ) { 
-#'    x <- data.frame( a=letters[ sort(rep(1:4,2)) ], b=c('FIRST','LAST') )
-#'    setDT(x)
-#'    setkey(x,a)
-#'    dup.action(x)
-#'    dup.first(x)
-#'    dup.last(x)
+#'     setDT(x)
+#'     x[ , b := 1:2 ]
+#'     setkey(x,a)
+#'     dup.action(x)
+#'     dup.first(x)
+#'     dup.last(x)
 #'  }
 #'        
 #' @rdname dup.action
@@ -49,43 +52,7 @@
 
 dup.pass <- function( object, ... ) object
 
-#' @rdname dup.action
-#' @aliases dup.first
-#' @export 
-
-dup.first <- function( object, ...)  { 
-  
-  ret <- object[ ! duplicated(object, ...), ]
-  
-  if( ! is.null( attr(object,"dup.action") ) ) 
-    attr( ret, "dup.action" ) <- attr( object, "dup.actions")
-  
-  return(ret)
-  
-}  
 
 
-#' @rdname dup.action
-#' @aliases dup.first
-#' @export 
-
-dup.last <- function( object, ...)  {
-  
-  if( ! is.data.table(object) && is.data.frame(object) ) 
-    ret <- object[ ! duplicated(object, fromLast=TRUE ),  ]
-  
-  if( is.data.table(object) ) {
-    revd <- object[ nrow(object):1, ] 
-    setkeyv( revd, key(object) )
-    revd <- revd[ ! duplicated( revd, fromLast=TRUE ) ]
-    ret <- revd[ 1:nrow(revd), ]
-  }
-
-  if( ! is.null( attr(object,"dup.action") ) ) 
-    attr( ret, "dup.action" ) <- attr( object, "dup.action")
- 
-  return(ret)
-
-}  
 
 
