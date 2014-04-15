@@ -10,14 +10,14 @@
 #' Unlike \code{na.action}, \code{dup.action} generally refers to a record 
 #' containing multiple columns, rather than a single vector.
 #' 
-#' \strong{dup.action}, the default is an alias for \code{identity} and does
-#' nothing similar to na.pass
+#' \strong{dup.pass} does nothing and passes \code{object} untouched
 #' 
-#' \strong{dup.first} removes all duplicates \strong{but the first}.  
-#' \strong{dup.omit} is a synonym for dup.first.
+#' \strong{dup.first} removes all duplicates \strong{but the first}.
 #' 
 #' \strong{dup.last} removes all duplicates \strong{but the last}.
-#' 
+#'   
+#' \strong{dup.omit} removes all records that have duplicates, i.e. only unique 
+#' records remain.
 #' 
 #' @return a object with the same class as \code{object} with the associated 
 #' dup.action
@@ -25,12 +25,12 @@
 #' Since a common scheme is to have an attribute \code{dup.action} associated
 #' with data, these are copied into the resulting data if they exist 
 #' 
-#' @seealso \code{\link[base]{duplicated}}
+#' @seealso \code{\link[base]{duplicated}}, \code{\link{dup.pivot}}
 #'
 #' @examples   
 #'   x <- data.frame( a=letters[ sort(rep(1:4,2)) ], b=1 )
 #'   
-#'   dup.action(x)
+#'   dup.pass(x)
 #'   dup.first(x)
 #'   dup.last(x)
 #' 
@@ -44,17 +44,10 @@
 #'  }
 #'        
 #' @rdname dup.action
-#' @aliases dup.action
-#' @export 
-
-dup.action <- identity
-
-#' @rdname dup.action
 #' @aliases dup.pass
 #' @export 
 
 dup.pass <- function( object, ... ) object
-
 
 #' @rdname dup.action
 #' @aliases dup.first
@@ -70,20 +63,6 @@ dup.first <- function( object, ...)  {
   return(ret)
   
 }  
-
-
-#' @rdname dup.action 
-#' @aliases dup.omit
-#' @export 
-
-dup.omit <- function( object, ... ) dup.first( object, ... )
-
-
-
-  
-  
-  
-
 
 
 #' @rdname dup.action

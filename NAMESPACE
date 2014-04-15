@@ -1,6 +1,7 @@
 S3method(dedup,data.frame)
 export(dedup)
-export(dup.action)
 export(dup.first)
 export(dup.last)
+export(dup.omit)
+export(dup.pass)
 export(dup.pivot)
