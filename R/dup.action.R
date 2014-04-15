@@ -2,7 +2,7 @@
 #'
 #' Actions to apply to duplicate records.
 #' 
-#' @param x data;
+#' @param object data;
 #' @param ... addditional arguments passed to
 #'
 #' \code{dup.action} is a family of functions similar to \code{na.action} that 
@@ -11,14 +11,15 @@
 #' containing multiple columns, rather than a single vector.
 #' 
 #' \strong{dup.action}, the default is an alias for \code{identity} and does
-#' nothing
+#' nothing similar to na.pass
 #' 
-#' \strong{dup.first} removes all duplicates \strong{but the first}.
+#' \strong{dup.first} removes all duplicates \strong{but the first}.  
+#' \strong{dup.omit} is a synonym for dup.first.
 #' 
 #' \strong{dup.last} removes all duplicates \strong{but the last}.
 #' 
 #' 
-#' @return a object with the same class as \code{x} with the associated 
+#' @return a object with the same class as \code{object} with the associated 
 #' dup.action
 #' 
 #' Since a common scheme is to have an attribute \code{dup.action} associated
@@ -26,9 +27,7 @@
 #' 
 #' @seealso \code{\link[base]{duplicated}}
 #'
-#' @examples
-#'   data(mtcars)
-#'   
+#' @examples   
 #'   x <- data.frame( a=letters[ sort(rep(1:4,2)) ], b=1 )
 #'   
 #'   dup.action(x)
@@ -50,42 +49,64 @@
 
 dup.action <- identity
 
+#' @rdname dup.action
+#' @aliases dup.pass
+#' @export 
+
+dup.pass <- function( object, ... ) object
+
 
 #' @rdname dup.action
 #' @aliases dup.first
 #' @export 
 
-dup.first <- function(x, ...) { 
+dup.first <- function( object, ...)  { 
   
-  ret <- x[ ! duplicated(x, ...), ]
+  ret <- object[ ! duplicated(object, ...), ]
   
-  if( ! is.null( attr(x,"dup.action") ) ) 
-    attr( ret, "dup.action" ) <- attr( x, "dup.actions")
+  if( ! is.null( attr(object,"dup.action") ) ) 
+    attr( ret, "dup.action" ) <- attr( object, "dup.actions")
   
   return(ret)
   
 }  
+
+
+#' @rdname dup.action 
+#' @aliases dup.omit
+#' @export 
+
+dup.omit <- function( object, ... ) dup.first( object, ... )
+
+
+
   
+  
+  
+
+
 
 #' @rdname dup.action
 #' @aliases dup.first
 #' @export 
 
-dup.last <- function(x, ...) {
+dup.last <- function( object, ...)  {
   
-  if( ! is.data.table(x) && is.data.frame(x) ) 
-    ret <- x[ ! duplicated(x, fromLast=TRUE ) ]
+  if( ! is.data.table(object) && is.data.frame(object) ) 
+    ret <- object[ ! duplicated(object, fromLast=TRUE ),  ]
   
-  if( is.data.table(x) ) {
-    revx <- x[ nrow(x):1 ] 
-    setkeyv( revx, key(x) )
-    revx <- revx[ ! duplicated( revx, fromLast=TRUE ) ]
-    ret <- revx[ 1:nrow(revx) ]
+  if( is.data.table(object) ) {
+    revd <- object[ nrow(object):1, ] 
+    setkeyv( revd, key(object) )
+    revd <- revd[ ! duplicated( revd, fromLast=TRUE ) ]
+    ret <- revd[ 1:nrow(revd), ]
   }
 
-  if( ! is.null( attr(x,"dup.action") ) ) 
-    attr( ret, "dup.action" ) <- attr( x, "dup.action")
+  if( ! is.null( attr(object,"dup.action") ) ) 
+    attr( ret, "dup.action" ) <- attr( object, "dup.action")
  
   return(ret)
 
 }  
+
+
