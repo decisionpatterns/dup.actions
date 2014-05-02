@@ -1,6 +1,6 @@
 Package: dup.action
 Title: Actions for handling duplicate records
-Version: 0.2.1
+Version: 0.2.2
 Authors@R: "Christopher Brown <chris.brown@decisionpatterns.com> [aut, cre]"
 Description: dup.action provides utilities for working with data sets with
     duplicate records. The core are functions dup.* that take some actions.
@@ -19,3 +19,4 @@ Collate:
     'dup.last.R'
     'dup.omit.R'
     'dup.pivot.R'
+    'zzz.R'

@@ -19,9 +19,8 @@ dup.last.data.frame <- function( object, ...)
 
 #' @export
 dup.last.data.table <- function( object, ...)  {
-   revd <- object[ nrow(object):1, ] 
-   setkeyv( revd, key(object) )
-   revd <- revd[ ! duplicated( revd ) ]
-   ret <- revd[ 1:nrow(revd), ]
-   return(ret)
+   object[ 
+     ! duplicated( object[ , key(object), with=FALSE ], fromLast=TRUE  ) 
+    ]
 }
+
