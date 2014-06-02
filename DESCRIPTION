@@ -20,3 +20,4 @@ Collate:
     'dup.omit.R'
     'dup.pivot.R'
     'zzz.R'
+    'dup.max.R'
