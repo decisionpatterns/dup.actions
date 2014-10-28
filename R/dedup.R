@@ -21,6 +21,7 @@
 #' @author Christopher Brown
 #' @examples
 #'   x <- data.frame( a=rep(1:2,5), b=1 )
+#'   dedup.data.frame(x)
 #'   dedup( x, dup.action=dup.first )
 #' @export
 
@@ -34,11 +35,13 @@ dedup <- function(x, dup.action, ... ) UseMethod( 'dedup' )
 dedup.data.frame <- function( 
     x
   , dup.action = 
-       if( ! is.null( attr(x, "dup.action" ) ) ) attr(x, "dup.action" ) else 
-       if( ! is.null( options('dup.action' ) ) ) options('dup.action') else 
-       NULL
+       if( ! is.null( attr(x, 'dup.action' ) ) ) attr(x, 'dup.action' ) else   # stored in x
+       if( ! is.null( getOption('dup.action' ) ) ) options('dup.action') else    # global   
+       stop( 'No dup.action was found or specified for deduping the data frame.' )
   , ...
  ) {
+  
+  
   
   # DUP.ACTION
   
