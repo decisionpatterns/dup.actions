@@ -1,7 +1,3 @@
-#' Retain maximum values in a data
-#' 
-#' Retains the maximum value when duplicates are encounters   
-#' 
 #' @param data a data object 
 #' @param ...
 #' 
@@ -18,10 +14,7 @@ dup.max <- function( data, na.rm=TRUE ) {
   
 }
 
-#' Retain minimum values in a data when deduping.
-#' 
-#' Retains the minimum value when duplicates are encounters   
-#' 
+
 #' @param data a data object 
 #' @param ...
 #' 
@@ -38,10 +31,3 @@ dup.min <- function( data, na.rm=TRUE ) {
   
 }
 
-#' Apply 
-#' 
-
-dup.fun <- function( data, ... ) {
-
-  
-}

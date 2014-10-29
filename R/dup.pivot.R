@@ -28,6 +28,7 @@
 #' 
 #' dup.pivot( y, "customer", "date" )
 #' 
+#' @import formula.tools reshape2
 #' @export
 
 dup.pivot <- function( data, id.vars, vary, ..., fun.aggregate=sum ) {  # na.rm=FALSE, variable.factor=FALSE, fill=NA, 
@@ -35,7 +36,7 @@ dup.pivot <- function( data, id.vars, vary, ..., fun.aggregate=sum ) {  # na.rm=
   # if( noneDuplicated(data) ) return(data)
   
   require( reshape2, quietly=TRUE )
-  
+  require( formula.tools, quietly = TRUE )
   # Melt 
   # id.vars : matching columns 
   # measure.vars :
