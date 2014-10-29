@@ -23,7 +23,7 @@
 #' @author Christopher Brown
 #' @examples
 #'   x <- c( 1,1,2,2,2,3,3)
-#'   dedup(x)                              # error 
+#'   # edup(x)                              # error 
 #'   x <- data.frame( a=rep(1:2,5), b=1 )
 #'   dedup( x, dup.action=dup.first )
 #'   

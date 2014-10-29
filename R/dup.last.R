@@ -26,15 +26,16 @@
 #' @export 
 
 dup.last <- function( object, ...)  UseMethod( 'dup.last' )
-  
+
+#' @export
 dup.last.default <- function( object, ... ) 
   object[ ! duplicated( object, fromLast=TRUE ) ]
 
-
+#' @export
 dup.last.data.frame <- function( object, ...)  
     object[ ! duplicated(object, fromLast=TRUE ),  ]
 
-
+#' @export
 dup.last.data.table <- function( object, ...)  { 
    
    if( is.null( key(object) ) ) { 

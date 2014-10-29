@@ -1,5 +1,5 @@
 #' @rdname dup.action
 
-dup.fun <- function( data, ... ) { 
+dup.fun <- function( object, ... ) { 
   stop( "Under development.")
 }

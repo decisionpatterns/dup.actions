@@ -26,9 +26,11 @@
 
 dup.first <- function( object, ... ) UseMethod( 'dup.first' )
 
+#' @export
 dup.first.default <- function( object, ... )  
   object[ ! duplicated(object)  ]  
 
+#' @export
 dup.first.data.frame <- function( object, ... )
   object[ ! duplicated(object), ]
 

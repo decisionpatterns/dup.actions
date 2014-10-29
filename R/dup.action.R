@@ -40,14 +40,14 @@
 #'   dup.first(x)
 #'   dup.last(x)
 #' 
-#'   if( require(data.table) ) { 
+#'   \dontrun{ 
 #'     setDT(x)
 #'     x[ , b := 1:2 ]
 #'     setkey(x,a)
 #'     dup.action(x)
 #'     dup.first(x)
 #'     dup.last(x)
-#'  }
+#'   }
 #'        
 #' @rdname dup.action
 #' @name dup.action
