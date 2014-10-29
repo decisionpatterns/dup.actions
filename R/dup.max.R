@@ -1,47 +1,29 @@
-#' Retain maximum values in a data
-#' 
-#' Retains the maximum value when duplicates are encounters   
-#' 
-#' @param data a data object 
-#' @param ...
-#' 
+
+#' @param na.rm whether to remove \code{NA} values, default: \code{TRUE} 
 #'  
 #' @rdname dup.action 
 #' @aliases dup.max
 #' @export 
 
-dup.max <- function( data, na.rm=TRUE ) { 
+dup.max <- function( object, na.rm=TRUE ) { 
 
-  if( haskey(data) )
-    data[ by=key(data), , lapply(.SD, max, na.rm=TRUE )] else 
-    data  
+  if( haskey(object) )
+    object[ by=key(object), , lapply(.SD, max, na.rm=TRUE )] else 
+    object  
   
 }
 
-#' Retain minimum values in a data when deduping.
-#' 
-#' Retains the minimum value when duplicates are encounters   
-#' 
-#' @param data a data object 
-#' @param ...
-#' 
+
 #'  
 #' @rdname dup.action 
 #' @aliases dup.max
 #' @export 
 
-dup.min <- function( data, na.rm=TRUE ) { 
+dup.min <- function( object, na.rm=TRUE ) { 
 
-  if( is.data.table( data ) && haskey(data) )
-    data[ by=key(data), , lapply(.SD, min, na.rm=na.rm )] else 
-    data  
+  if( is.data.table( object ) && haskey(object) )
+    object[ by=key(object), , lapply(.SD, min, na.rm=na.rm )] else 
+    object  
   
 }
 
-#' Apply 
-#' 
-
-dup.fun <- function( data, ... ) {
-
-  
-}
