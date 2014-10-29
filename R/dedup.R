@@ -1,17 +1,19 @@
-#' Remove duplicate records
+#' Remove duplicate elements/records
 #' 
-#' Remove duplicate records according to a \code{dup.action}, preserving 
-#' attributes if they exist.  
+#' Remove duplicate elements or records according to a \code{dup.action}, 
+#' preserving attributes if they exist.  
 #'  
-#' @param x object from which to remove duplicates
-#' @param dup.action function used to remove duplicates
+#' @param x object from which to remove duplicates.
+#' 
+#' @param dup.action function used to remove duplicates. 
+#' The \code{dup.action} is taken from the \code{dup.action} attribute of 
+#' \code{x} if it exists or the global option (\code{getOption('dup.action')}) 
+#' if that exists.  Otherwise the \code{dup.action} must be specified.
+#' 
 #' @param ... additional arguments passed to \code{dup.action}
 #' 
 #' \code{dedup} is an S3 generic. It is designed to be a smart version of the
 #' \code{dup.*} that select actions based on context. 
-#' 
-#' \code{dedup} for data objects searches for a \code{dup.action} as an 
-#' attribute to \code{x} or in \code{options()} if not specified.
 #' 
 #' Since \code{dedup} is supposed to remove any duplicate records, it issues an
 #' error if \code{dup.action} has left any duplicate records.
@@ -20,28 +22,38 @@
 #' 
 #' @author Christopher Brown
 #' @examples
+#'   x <- c( 1,1,2,2,2,3,3)
+#'   # edup(x)                              # error 
 #'   x <- data.frame( a=rep(1:2,5), b=1 )
-#'   dedup.data.frame(x)
 #'   dedup( x, dup.action=dup.first )
+#'   
+#'   \dontrun{ 
+#'     setDT(x)
+#'     dedup( x, dup.action = dup.first )
+#'   }
 #' @export
 
-dedup <- function(x, dup.action, ... ) UseMethod( 'dedup' )
+dedup <- function(
+    x
+  , dup.action 
+  , ... 
+) UseMethod( 'dedup' )
+
+
+dedup.default <- function( x
+  , dup.action = 
+      if( ! is.null( attr(x, "dup.action" ) ) ) attr(x, "dup.action" ) else 
+      if( ! is.null( getOption('dup.action' ) ) ) getOption('dup.action') else         
+      stop( 'No `dup.action` has been specifed has been specifiied.' )
+  , ...
+) dup.action(x, ...)
 
 
 #' @rdname dedup
 #' @method dedup data.frame
 #' @export
 
-dedup.data.frame <- function( 
-    x
-  , dup.action = 
-       if( ! is.null( attr(x, 'dup.action' ) ) ) attr(x, 'dup.action' ) else   # stored in x
-       if( ! is.null( getOption('dup.action' ) ) ) options('dup.action') else    # global   
-       stop( 'No dup.action was found or specified for deduping the data frame.' )
-  , ...
- ) {
-  
-  
+dedup.data.frame <- function( x, dup.action, ... ) {
   
   # DUP.ACTION
   
