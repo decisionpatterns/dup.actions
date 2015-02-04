@@ -11,7 +11,8 @@
 #' @param ... additional arguments passed to \code{melt} or \code{cast}
 #' @param fun.aggregate function used to aggregate duplicate cell (default=sum)
 #' 
-#' @seealso \code{\link{dup.action}}
+#' @seealso 
+#'   \code{\link{dup.action}}
 #' 
 #' @examples
 #' 
@@ -31,15 +32,15 @@
 #' 
 #'   dup.pivot( y, "customer", "date" )
 #' 
-#' @import formula.tools reshape2
+# @import formula.tools 
+# @import reshape2
 #' @export
 
 dup.pivot <- function( object, id.vars, vary, ..., fun.aggregate=sum ) {  # na.rm=FALSE, variable.factor=FALSE, fill=NA, 
     
   # if( noneDuplicated(object) ) return(object)  # performance enhancement
   
-#   require( reshape2, quietly=TRUE )
-#   require( formula.tools, quietly = TRUE )
+
   # Melt 
   # id.vars : matching columns 
   # measure.vars :
@@ -55,16 +56,16 @@ dup.pivot <- function( object, id.vars, vary, ..., fun.aggregate=sum ) {  # na.r
   #' RHS := 
   form <- LHS ~ RHS 
   
-  lhs( form ) <- 
+  formula.tools::lhs( form ) <- 
     parse( text=paste( id.vars, collapse="+" ) )[[1]] 
   
-  rhs( form ) <-  
+  formula.tools::rhs( form ) <-  
     parse( text=paste( c( 'variable', vary ), collapse="+" ) )[[1]]
     
   
   # DUPLICATES.
   #  DUPLICATES ARE AUTOMATICALLY HANDLED BY THE 
-  object. <-  dcast.data.table( object.me, form, fun.aggregate=fun.aggregate ) 
+  object. <-  reshape2::dcast( object.me, form, fun.aggregate=fun.aggregate ) 
   
   return(object.)
   

@@ -7,8 +7,8 @@
 #'
 #' \code{dup.action} is a family of functions similar to \code{na.action} that 
 #' provide behaviors for data objects when duplicate records are encountered. 
-#' Unlike \code{na.action}, \code{dup.action} generally refers to a record 
-#' containing multiple columns, rather than a single vector.
+#' Unlike \code{na.action}, \code{dup.action} can refer to a multiple columns 
+#' in a table, rather than a single vector.
 #' 
 #' \strong{dup.pass} does nothing and passes \code{object} untouched
 #' 

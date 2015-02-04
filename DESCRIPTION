@@ -1,6 +1,6 @@
 Package: dup.actions
 Title: Actions for handling duplicate records
-Version: 0.3.1
+Version: 0.3.2
 Authors@R: "Christopher Brown <chris.brown@decisionpatterns.com> [aut, cre]"
 Description: dup.action provides utilities for working with data sets with
     duplicate records.
@@ -9,8 +9,7 @@ Depends:
 Imports:
     reshape2,
     formula.tools,
-    data.table
-Recommends: data.table(>= 1.9.3)
+    data.table (>= 1.9.3)
 License: GPL (>= 2)
 LazyData: NA
 Suggests:

@@ -1,4 +1,3 @@
-
 #' @param na.rm whether to remove \code{NA} values, default: \code{TRUE} 
 #'  
 #' @rdname dup.action 
